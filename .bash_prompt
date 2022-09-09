@@ -45,11 +45,9 @@ function set_bash_prompt () {
   set_job_running
 
 
-  # Bash prompt that shows user:[directory] [bg]
-  PS1="${debian_chroot:+($debian_chroot)}\u:[\w] ${JOBNUM}${BRANCH} \$ "
-
   if [ "$color_prompt" = yes ]; then
-      PS1="${debian_chroot:+($debian_chroot)}${BOLD_GREEN}\u${COLOR_NONE}:${BOLD_BLUE}[\w]${COLOR_NONE}${LIGHT_RED}${JOBNUM}${COLOR_NONE}${PURPLE}${COLOR_NONE}${BRANCH} \$ "
+    # Bash prompt that shows user:[directory] [bg] (git) with color
+    PS1="${debian_chroot:+($debian_chroot)}${BOLD_GREEN}\u${COLOR_NONE}:${BOLD_BLUE}[\w]${COLOR_NONE}${BOLD_RED}${JOBNUM}${COLOR_NONE}${PURPLE}${COLOR_NONE}${BRANCH} \$ "
   else
     # Bash prompt that shows user:[directory] [bg] (git) without color
     PS1="${debian_chroot:+($debian_chroot)}\u:[\w] ${JOBNUM}${BRANCH} \$ "
