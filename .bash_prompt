@@ -1,10 +1,40 @@
 #!/bin/bash
 
+
+# determine git branch name
+function parse_git_branch(){
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# Determine the branch/state information for this git repository.
+function set_git_branch() {
+  # Get the name of the branch.
+  branch=$(parse_git_branch)
+  BRANCH="${branch}"
+}
+
+# Determine if there are any jobs runningin the background
+function set_job_running () {
+  if [ $(jobs | wc -l) -eq 0 ] ;
+  then  JOBNUM=""
+else  JOBNUM=" [\j] "
+  fi
+}
+
+
 # Set the full bash prompt.
 function set_bash_prompt () {
 
-  PS1="${debian_chroot:+($debian_chroot)}\u:[\w] [\j] \$ "
+  # Set the BRANCH variable.
+  set_git_branch
+  # Set the JOBNUM variable.
+  set_job_running
 
+
+  # Bash prompt that shows user:[directory] [bg]
+  PS1="${debian_chroot:+($debian_chroot)}\u:[\w] ${JOBNUM}${BRANCH} \$ "
+
+  # Set terminal name with time
   case "$TERM" in
   xterm*|rxvt*)
       PS1="\[\e]0;${debian_chroot:+($debian_chroot)}[\t] \u@\h: \w\a\]$PS1"
