@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Set the full bash prompt.
+function set_bash_prompt () {
+
+  PS1="${debian_chroot:+($debian_chroot)}\u:[\w] [\j] \$ "
+
+  case "$TERM" in
+  xterm*|rxvt*)
+      PS1="\[\e]0;${debian_chroot:+($debian_chroot)}[\t] \u@\h: \w\a\]$PS1"
+      ;;
+  *)
+      ;;
+  esac
+}
+
+PROMPT_DIRTRIM=2
+# Tell bash to execute this function just before displaying its prompt.
+PROMPT_COMMAND=set_bash_prompt
