@@ -6,6 +6,15 @@ if [ -f ~/.bash_colors ]; then
     . ~/.bash_colors
 fi
 
+# check if there was an error in last line and if yes make the prompt red
+function set_prompt_symbol () {
+  if test $1 -eq 0 ; then
+      PROMPT_SYMBOL="\$"
+  else
+      PROMPT_SYMBOL="${BOLD_RED}\$${COLOR_NONE}"
+  fi
+}
+
 # determine git branch name
 function parse_git_branch(){
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
@@ -20,9 +29,10 @@ function set_git_branch() {
 
 # Determine if there are any jobs runningin the background
 function set_job_running () {
-  if [ $(jobs | wc -l) -eq 0 ] ;
-  then  JOBNUM=""
-else  JOBNUM=" [\j] "
+  if [ $(jobs | wc -l) -eq 0 ] ; then
+      JOBNUM=""
+    else
+      JOBNUM=" [\j] "
   fi
 }
 
@@ -30,6 +40,8 @@ else  JOBNUM=" [\j] "
 # Set the full bash prompt.
 function set_bash_prompt () {
 
+  # Set the PROMPT_SYMBOL
+  set_prompt_symbol $?
   # Set the BRANCH variable.
   set_git_branch
   # Set the JOBNUM variable.
@@ -38,7 +50,7 @@ function set_bash_prompt () {
 
   if [ "$color_prompt" = yes ]; then
     # Bash prompt that shows user:[directory] [bg] (git) with color
-    PS1="${debian_chroot:+($debian_chroot)}${bldgrn}\u${txtrst}:${bldblu}[\w]${txtrst}${bldred}${JOBNUM}${txtrst}${txtpur}${BRANCH}${txtrst} \$ "
+    PS1="${debian_chroot:+($debian_chroot)}${bldgrn}\u${txtrst}:${bldblu}[\w]${txtrst}${bldred}${JOBNUM}${txtrst}${txtpur}${BRANCH}${txtrst}${PROMPT_SYMBOL} "
   else
     # Bash prompt that shows user:[directory] [bg] (git) without color
     PS1="${debian_chroot:+($debian_chroot)}\u:[\w] ${JOBNUM}${BRANCH} \$ "
