@@ -91,7 +91,11 @@ function set_bash_prompt () {
   *)
       ;;
   esac
+
 }
+
+# save every line in history
+declare PROMPT_COMMAND="history -a;history -r"
 
 # Shorten directory to only two
 PROMPT_DIRTRIM=2
