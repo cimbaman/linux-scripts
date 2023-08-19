@@ -73,7 +73,7 @@ function set_bash_prompt () {
 
   if [ "$color_prompt" = yes ]; then
     # Bash prompt that shows user:[directory] [bg] (git) with color
-    PS1="${debian_chroot:+($debian_chroot)}${bldgrn}\u${txtrst}:${bldblu}[\w]${txtrst}${bldred}${JOBNUM}${txtrst}${txtpur}${BRANCH}${txtrst}${PROMPT_SYMBOL} "
+    PS1="${debian_chroot:+($debian_chroot)}${bldgrn}\u${txtrst}:${bldblu}[\w]${txtrst}${bldred}${JOBNUM}${txtrst}${txtcyn}${BRANCH}${txtrst}${PROMPT_SYMBOL} "
   else
     # Bash prompt that shows user:[directory] [bg] (git) without color
     PS1="${debian_chroot:+($debian_chroot)}\u:[\w] ${JOBNUM}${BRANCH} \$ "
@@ -92,10 +92,12 @@ function set_bash_prompt () {
       ;;
   esac
 
+  history -a;history -r
+
 }
 
 # save every line in history
-declare PROMPT_COMMAND="history -a;history -r"
+# declare PROMPT_COMMAND="history -a;history -r"
 
 # Shorten directory to only two
 PROMPT_DIRTRIM=2
