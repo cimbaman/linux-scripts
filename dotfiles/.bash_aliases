@@ -13,3 +13,6 @@ alias sorthistory="tac {$HOME}/.bash_history | grep -v sorthistory | awk '!seen[
 alias proxymanual="gsettings set org.gnome.system.proxy mode 'manual'"
 alias proxyauto="gsettings set org.gnome.system.proxy mode 'auto'"
 alias proxynone="gsettings set org.gnome.system.proxy mode 'none'"
+
+alias copy="xclip -sel clip"
+alias paste="xclip -sel clip -o"
