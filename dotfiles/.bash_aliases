@@ -16,3 +16,12 @@ alias proxynone="gsettings set org.gnome.system.proxy mode 'none'"
 
 alias copy="xclip -sel clip"
 alias paste="xclip -sel clip -o"
+
+unsudo() {
+
+  if [ "sudo" = "$1" ]; then
+    eval "${@:2}"
+  else
+    eval ${@}
+  fi
+}
