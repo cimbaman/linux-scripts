@@ -20,4 +20,28 @@
       type = Terminal
       parent = window0
       profile = default
+  [[tmis2]]
+    [[[w1]]]
+      type = Window
+      parent = ""
+      order = 0
+      maximised = True
+      fullscreen = False
+    [[[vsplit0]]]
+      type = VPaned
+      parent = w1
+      order = 0
+      ratio = 0.5
+    [[[terminal0]]]
+      type = Terminal
+      parent = vsplit0
+      order = 0
+      profile = default
+      command = cd ~/Documents/WORK/tmis/tmis-fe; bash
+    [[[terminal1]]]
+      type = Terminal
+      parent = vsplit0
+      order = 1
+      profile = default
+      command = cd ~/Documents/WORK/tmis/tmis-be; bash
 [plugins]
