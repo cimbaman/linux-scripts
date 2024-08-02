@@ -19,9 +19,13 @@ alias paste="xclip -sel clip -o"
 
 unsudo() {
 
+  sed -i '$ d' ~/.bash_history
+
   if [ "sudo" = "$1" ]; then
+    history -s ${@:2}
     eval "${@:2}"
   else
+    history -s ${@}
     eval ${@}
   fi
 }
